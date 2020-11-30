@@ -70,7 +70,7 @@ namespace Undani.DataClient
             }
         }
 
-        public DbDataReader ExecuteReader()
+        public IDataReader ExecuteReader()
         {
             foreach (_Parameter parameter in Parameters)
             {
@@ -78,6 +78,22 @@ namespace Undani.DataClient
             }
 
             return (DbDataReader)_sqlCommand.ExecuteReader();
+        }
+
+        public DataTable ExecuteDataTable()
+        {
+            foreach (_Parameter parameter in Parameters)
+            {
+                _sqlCommand.Parameters.Add(parameter.SqlParameter);
+            }
+
+            SqlDataAdapter da = new SqlDataAdapter(_sqlCommand);
+
+            DataTable dt = new DataTable();
+
+            da.Fill(dt);
+
+            return dt;
         }
 
         public void Dispose()

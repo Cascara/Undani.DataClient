@@ -12,6 +12,16 @@ namespace Undani.DataClient.Test
             string cns = "Server=karakcloud.ddns.net\\sqlexpress01;Initial catalog=Tracking;Persist Security Info=False;User Id=sa;Password=AsdfgH45-4;MultipleActiveResultSets=False;Encrypt=False;TrustServerCertificate=True;Connection Timeout=60;";
 
             Reader(cns);
+
+            Console.WriteLine("Termino DataReader");
+
+            Table(cns);
+
+            Console.WriteLine("Termino Tabla");
+
+            Parameters(cns);
+
+            Console.WriteLine("Termino DataReader");
         }
 
         public static void Reader(string cns)
@@ -25,7 +35,7 @@ namespace Undani.DataClient.Test
                     cmd.Parameters.Add(new _Parameter("@UserId", _ParameterType.UniqueIdentifier) { Value = Guid.Parse("9B101EE0-2120-475E-8721-C8A82B0EBB3A") });
                     cmd.Parameters.Add(new _Parameter("@RolId", _ParameterType.Int) { Value = 1 });
 
-                    using (DbDataReader reader = cmd.ExecuteReader())
+                    using (IDataReader reader = cmd.ExecuteReader())
                     {
                         while (reader.Read())
                         {
